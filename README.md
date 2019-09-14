@@ -25,3 +25,10 @@
 + PermissionUtil
 	+ permissionEntry(Activity activity,Context context,boolean isSubmit,int mRequestCode)
 	+ getPermission(String permissions, Context context)
+
++ ThreadUtil
+    + isRunMainThread()
+    + runOnMainThread(Runnable runnable)
+    + runOnChildThread(Runnable runnable)
+    + runOnMainThreadDelayed(Runnable runnable, long time)
+    + runOnChildThreadDelayed(Runnable runnable, long time)
