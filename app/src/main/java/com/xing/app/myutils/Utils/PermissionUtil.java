@@ -38,12 +38,11 @@ public class PermissionUtil {
     private static boolean allPermission=true;
 
     private static void checkPermissions(String[] permissions, int requestCode, Activity activity) {
-        //权限不能为空
         if (permissions != null || permissions.length != 0) {
             mRequestCode = requestCode;
-            for (int i = 0; i < permissions.length; i++) {
-                if (!getPermission(permissions[i],activity)) {
-                    mListPermissions.add(permissions[i]);
+            for (String permission : permissions) {
+                if (!getPermission(permission, activity)) {
+                    mListPermissions.add(permission);
                 }
             }
             //遍历完后哪些权限需要申请
@@ -53,10 +52,7 @@ public class PermissionUtil {
 
     //单个权限是否申请完成
     public static boolean getPermission(String permissions, Context context) {
-        if (ContextCompat.checkSelfPermission(context, permissions) != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }
-        return true;
+        return ContextCompat.checkSelfPermission(context, permissions) != PackageManager.PERMISSION_GRANTED;
     }
 
     //单个权限申请
@@ -68,17 +64,15 @@ public class PermissionUtil {
     }
 
     /* 检查权限是否全部申请完成
-     *  Activity activity
-     *  Context context
-     *  isSubmit  是否需要申请权限
-     *  return 全部权限是否都拿到
+     * @param isSubmit 是否需要申请权限
+     * @param mRequestCode 在onRequestPermissionsResult中返回
+     * @return 全部权限是否都拿到
      */
-
-    public static boolean permissionEntry(Activity activity,Context context,boolean isSubmit) {
+    public static boolean permissionEntry(Activity activity,Context context,boolean isSubmit,int mRequestCode) {
         for (String tPermission : tPermissions) {
             if (!PermissionUtil.getPermission(tPermission, context)) {  // 是否有这个权限
                 if (isSubmit) {
-                    PermissionUtil.checkPermissions(tPermissions, 300, activity);
+                    PermissionUtil.checkPermissions(tPermissions, mRequestCode, activity);
                 }
                 allPermission = false;
                 break;
