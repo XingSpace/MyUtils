@@ -32,3 +32,5 @@
     + runOnChildThread(Runnable runnable)
     + runOnMainThreadDelayed(Runnable runnable, long time)
     + runOnChildThreadDelayed(Runnable runnable, long time)
+    + runOnChildThreadLoop(Runnable runnable, String tag, long time)
+    + stopChildThreadLoopWithTag(String tag)
