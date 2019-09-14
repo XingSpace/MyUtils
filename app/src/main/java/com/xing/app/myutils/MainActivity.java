@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.xing.app.myutils.Utils.PermissionUtil;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
@@ -17,5 +19,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.text);
         imageView = findViewById(R.id.image);
+
+        PermissionUtil.permissionEntry(this,getBaseContext(),true);
+
+
+
     }
 }
