@@ -52,7 +52,7 @@ public class PermissionUtil {
 
     //单个权限是否申请完成
     public static boolean getPermission(String permissions, Context context) {
-        return ContextCompat.checkSelfPermission(context, permissions) != PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(context, permissions) == PackageManager.PERMISSION_GRANTED;
     }
 
     //单个权限申请
