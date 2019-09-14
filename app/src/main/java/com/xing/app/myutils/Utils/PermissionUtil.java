@@ -38,40 +38,42 @@ public class PermissionUtil {
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private static boolean allPermission=true;
 
+    //检查哪些权限已经获取，将未获取到的权限，再申请一遍
     private static void checkPermissions(String[] permissions, int requestCode, Activity activity) {
         if (permissions != null || permissions.length != 0) {
             mRequestCode = requestCode;
             for (String permission : permissions) {
-                if (!getPermission(permission, activity)) {
+                if (!isGotPermission(permission, activity)) {
                     mListPermissions.add(permission);
                 }
             }
-            //遍历完后哪些权限需要申请
-            applyPermission(activity);
+            applyPermissions(activity);
         }
     }
 
-    //单个权限是否申请完成
-    public static boolean getPermission(String permissions, Context context) {
+    //判断是否已有某个权限
+    public static boolean isGotPermission(String permissions, Context context) {
         return ContextCompat.checkSelfPermission(context, permissions) == PackageManager.PERMISSION_GRANTED;
     }
 
-    //单个权限申请
-    private static void applyPermission(Activity activity) {
+    //将集合中的权限全部申请
+    private static void applyPermissions(Activity activity) {
         if (!mListPermissions.isEmpty()) {
             int size = mListPermissions.size();
             ActivityCompat.requestPermissions(activity, mListPermissions.toArray(new String[size]), mRequestCode);
         }
     }
 
-    /* 检查权限是否全部申请完成
+    /**
+     * 检查数组中所有权限，并申请
      * @param isSubmit 是否需要申请权限
      * @param mRequestCode 在onRequestPermissionsResult中返回
      * @return 全部权限是否都拿到
      */
     public static boolean permissionEntry(Activity activity,Context context,boolean isSubmit,int mRequestCode) {
+        if (activity == null || context == null) return false;
         for (String tPermission : tPermissions) {
-            if (!PermissionUtil.getPermission(tPermission, context)) {  // 是否有这个权限
+            if (!PermissionUtil.isGotPermission(tPermission, context)) {  // 是否有这个权限
                 if (isSubmit) {
                     PermissionUtil.checkPermissions(tPermissions, mRequestCode, activity);
                 }

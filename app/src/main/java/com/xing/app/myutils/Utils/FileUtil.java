@@ -13,6 +13,7 @@ public class FileUtil {
      * 删除文件夹（包含文件夹目录下所有资源）
      */
     public static boolean deleteFile(File file) {
+        if (file == null) return false;
         if (file.exists()) {
             if (file.isDirectory()) {
                 String[] children = file.list();
@@ -32,6 +33,7 @@ public class FileUtil {
      * @param isCover 如果目标路径已经存在一个同名文件，是否覆盖它
      */
     public static boolean moveFile(File original, File target,boolean isCover) {
+        if (original == null || target == null) return false;
         if (!target.exists()){
             target.mkdirs();
         }
@@ -57,6 +59,7 @@ public class FileUtil {
      * @param isCover 是否覆盖已有的文件
      */
     public static boolean moveFiles(File original, File target, boolean isCover) {
+        if (original == null || target == null) return false;
         if (original.exists()) {
             return moveFile(original,target,isCover);
         }

@@ -14,6 +14,7 @@ public class BitmapUtil {
      * @return 返回一个圆角的bitmap
      */
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float roundPx) {
+        if (bitmap == null || roundPx < 0) return null;
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
         Bitmap output = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);

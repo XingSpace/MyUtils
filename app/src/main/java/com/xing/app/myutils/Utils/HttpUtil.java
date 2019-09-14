@@ -40,11 +40,12 @@ public class HttpUtil {
      * @return Response对象
      */
     public static Response uploadFile(String url, Map<String, String> map, File file ,String fileKey) {
+        if (StringUtil.isEmpty(url)) return null;
 
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         // 上传数据整理
-        if (file != null) {
+        if (file != null && !StringUtil.isEmpty(fileKey)) {
             String fileName = file.getName();
             RequestBody body = RequestBody.create(MediaType.parse(getMimeType(fileName)), file);
             requestBody.addFormDataPart(fileKey, fileName, body);
@@ -77,6 +78,8 @@ public class HttpUtil {
      * @return 返回0则下载成功
      */
     public static int downloadFile(String sourcePath, String distPath, String fileName, boolean isForce) {
+        if (StringUtil.isEmpty(sourcePath,distPath,fileName)) return -1;
+
         File newFile = new File(distPath + "/" + fileName);
 
         if (newFile.exists()) {
