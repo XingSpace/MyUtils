@@ -15,7 +15,7 @@ import java.util.List;
  * 需要再AndroidManifest中做权限申请配置，然后再动态申请权限
  *     <uses-permission android:name="android.permission.READ_SMS"/>
  *     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
- *     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+ *     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
  *     <uses-permission android:name="android.permission.CAMERA"/>
  *     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
  *     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
@@ -34,7 +34,8 @@ public class PermissionUtil {
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.READ_CALL_LOG,
             Manifest.permission.READ_CONTACTS,
-            Manifest.permission.READ_EXTERNAL_STORAGE};
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private static boolean allPermission=true;
 
     private static void checkPermissions(String[] permissions, int requestCode, Activity activity) {

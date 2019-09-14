@@ -36,7 +36,9 @@ public class IOUtil {
         try {
             Source source = Okio.source(file);
             BufferedSource buffer = Okio.buffer(source);
-            return buffer.readString(Charset.forName("UTF-8"));
+            String s = buffer.readString(Charset.forName("UTF-8"));
+            buffer.close();
+            return s;
         }catch (Exception e){
             e.printStackTrace();
         }
