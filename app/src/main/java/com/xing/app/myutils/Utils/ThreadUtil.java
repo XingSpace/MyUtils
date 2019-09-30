@@ -112,7 +112,7 @@ public class ThreadUtil {
         /**
          * 停止线程
          */
-        public void close() {
+        void close() {
             isRun = false;
         }
 
