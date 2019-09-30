@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xing.app.myutils.Utils.LogUtil;
 import com.xing.app.myutils.Utils.ThreadUtil;
-import com.xing.app.myutils.Utils.ToastUtil;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show(getBaseContext(),"我的天呐！！！");
+
             }
         });
 
