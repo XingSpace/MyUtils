@@ -64,6 +64,8 @@
         - 计算C（n,m）组合数
     + CalcPermutation(int m,int n)
         - 计算P（n,m）排列数
+    + CalcPermutationRepetition(int m,int n)
+        - 计算PR（n，m）可重排列
     + CalcFactorial(int x)
         - 计算阶乘
     + CalcFactorial(String s)

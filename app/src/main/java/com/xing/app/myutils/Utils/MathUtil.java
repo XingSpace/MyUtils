@@ -35,6 +35,24 @@ public class MathUtil {
     }
 
     /**
+     * @return PR(n,m)
+     * 返回 n个不同元素的一个m-可重排列
+     */
+    public static BigInteger CalcPermutationRepetition(int m,int n){
+        if (m > n || n <= 0 || m <= 0) return null;
+
+        BigInteger M = new BigInteger(String.valueOf(m));
+        BigInteger N = new BigInteger(String.valueOf(n));
+        BigInteger result = new BigInteger("1");
+        for ( BigInteger i = new BigInteger("1");
+              M.max(i).equals(M);
+              i = i.add(new BigInteger("1"))){
+            result = result.multiply(N);
+        }
+        return result;
+    }
+
+    /**
      * @return 返回 X 的阶乘
      */
     public static BigInteger CalcFactorial(int x){
