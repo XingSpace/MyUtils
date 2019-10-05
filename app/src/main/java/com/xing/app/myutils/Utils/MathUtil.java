@@ -1,20 +1,11 @@
-package com.xing.app.myutils;
-
-import org.junit.Test;
+package com.xing.app.myutils.Utils;
 
 import java.math.BigInteger;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * 数学公式计算工具类
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        BigInteger b = CalcCombination(2,4);
-        System.out.println("5取3 计算结果:"+b.toString());
-    }
+public class MathUtil {
 
     /**
      * @return C (n,m)
@@ -64,4 +55,5 @@ public class ExampleUnitTest {
         }
         return result;
     }
+
 }
