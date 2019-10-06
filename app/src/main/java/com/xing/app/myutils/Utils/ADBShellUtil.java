@@ -7,6 +7,11 @@ import java.io.DataOutputStream;
  */
 public class ADBShellUtil {
 
+    /**
+     * 将shell命令写入process
+     * @param cmds 多个shell命令
+     * @return 是否执行成功
+     */
     public static boolean execCmd(String... cmds){
         if (cmds == null || cmds.length == 0){
             return false;

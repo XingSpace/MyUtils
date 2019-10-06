@@ -74,4 +74,28 @@ public class MathUtil {
         return result;
     }
 
+    /**
+     * @return 判断一个数是否为奇数,反之为偶数
+     */
+    public static boolean isOddNum(int i){
+        return (i & 1) == 1;
+    }
+
+    public static boolean isOddNum(long l){
+        return (l & 1L) == 1L;
+    }
+
+    /**
+     * @param value 真数
+     * @param base 底数
+     * @return 对数
+     */
+    public static double log(double value, double base) {
+        return Math.log(value) / Math.log(base);
+    }
+
+    public static double log(int value, int base){
+        return log((long)value,(long)base);
+    }
+
 }

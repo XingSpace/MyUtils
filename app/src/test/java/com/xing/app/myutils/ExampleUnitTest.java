@@ -13,7 +13,21 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         BigInteger b = CalcPermutationRepetition(3,5);
-        System.out.println("5取3 计算结果:"+b.toString());
+//        System.out.println("5取3 计算结果:"+b.toString());
+//        System.out.println("奇偶 计算结果:"+isOddNum(-89L));
+
+        //暂时做记录，该方法可以输出任意一个正整数的负数形式
+        String s = Integer.toBinaryString(-29);//输出的是补码
+
+        String fan = Integer.toBinaryString(~29 + 1);
+
+        System.out.println("-29的原码："+s);
+        System.out.println("~29的原码："+fan);
+        System.out.println("29的负数："+Integer.parseUnsignedInt(fan,2));
+
+
+
+//        System.out.println("奇偶 计算结果:"+Integer.parseUnsignedInt("11111111",2));
     }
 
     /**
@@ -81,5 +95,15 @@ public class ExampleUnitTest {
             result = i.multiply(result);
         }
         return result;
+    }
+    /**
+     * @return 判断一个数是否为奇数,反之为偶数
+     */
+    public static boolean isOddNum(int i){
+        return (i & 1) == 1;
+    }
+
+    public static boolean isOddNum(long l){
+        return (l & 1L) == 1L;
     }
 }
