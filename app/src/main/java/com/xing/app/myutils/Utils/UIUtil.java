@@ -1,7 +1,9 @@
 package com.xing.app.myutils.Utils;
 
 import android.content.Context;
+import android.hardware.display.DisplayManager;
 import android.util.AttributeSet;
+import android.view.Display;
 
 public class UIUtil {
 
@@ -33,6 +35,26 @@ public class UIUtil {
         String widthStr = attributeSet.getAttributeValue("http://schemas.android.com/apk/res/android","layout_width");
 
         return 0;
+    }
+
+    /**
+     * @return 如果返回为1，表示当前设备只有一个显示屏，如果为2表示当前设备有两个屏，以此类推
+     */
+    public static int getDisplaysLength(Context context){
+        return getDisplays(context).length;
+    }
+
+    /**
+     * @param index 从0开始，需要第几个屏幕就输入几
+     * @return 对应的屏幕对象
+     */
+    public static Display getDisplay(Context context,int index){
+        return getDisplays(context)[index];
+    }
+
+    public static Display[] getDisplays(Context context){
+        DisplayManager manager = (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);
+        return manager.getDisplays();
     }
 
 }
