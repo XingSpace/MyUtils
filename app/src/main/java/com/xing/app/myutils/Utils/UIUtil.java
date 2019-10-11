@@ -1,9 +1,17 @@
 package com.xing.app.myutils.Utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.display.DisplayManager;
 import android.util.AttributeSet;
+import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.WindowManager;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class UIUtil {
 
@@ -55,6 +63,83 @@ public class UIUtil {
     public static Display[] getDisplays(Context context){
         DisplayManager manager = (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);
         return manager.getDisplays();
+    }
+
+    /**
+     * 获取屏幕尺寸
+     * @return DisplayMetrics
+     */
+    public static DisplayMetrics getScreenSize(Context context) {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
+        } else {
+            windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        }
+
+        return displayMetrics;
+    }
+
+    /**
+     * Base64字符串 转 图片Bitmap
+     * @param base64String Base64字符串
+     * @return Bitmap
+     */
+    public static Bitmap base64ToBitmap(String base64String) {
+
+        Bitmap bitmap = null;
+        try {
+            byte[] bitmapArray = Base64.decode(base64String.split(",")[1], Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
+
+    /**
+     * 图片Bitmap 转 Base64字符串
+     * @param bitmap Bitmap
+     * @return Base64字符串
+     */
+    public static String bitmapToBase64(Bitmap bitmap) {
+
+        // 要返回的字符串
+        String reslut = null;
+        ByteArrayOutputStream baos = null;
+
+        try {
+            if (bitmap != null) {
+                baos = new ByteArrayOutputStream();
+                // 压缩只对保存有效果,bitmap还是原来的大小
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                baos.flush();
+                baos.close();
+                // 转换为字节数组
+                byte[] byteArray = baos.toByteArray();
+
+                // 转换为字符串
+                reslut = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            } else {
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (baos != null) {
+                    baos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return reslut;
     }
 
 }
