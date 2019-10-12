@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.display.DisplayManager;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.AttributeSet;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -140,6 +142,44 @@ public class UIUtil {
         }
 
         return reslut;
+    }
+
+    /**
+     * 用于对字符进行高亮处理
+     *
+     * @param color #ffffff 十六进制颜色格式
+     * @return 所有的字母和数字都做特殊颜色处理
+     */
+    public static Spanned highLightingTextColor(String text, String color) {
+
+        String fontS = "<font color=\"" + color + "\">";
+        String fontE = "</font>";
+
+        StringBuilder record = new StringBuilder();
+
+        boolean b = false;
+
+        for (int i = 0; i < text.length(); i++) {
+            if (String.valueOf(text.charAt(i)).matches("[0-9a-zA-Z]")) {
+                if (!b) {
+                    b = true;
+                    record.append(fontS);
+                }
+                record.append(text.charAt(i));
+            } else {
+                if (b) {
+                    b = false;
+                    record.append(fontE);
+                }
+                record.append(text.charAt(i));
+            }
+        }
+
+        if (String.valueOf(record.charAt(record.length() - 1)).matches("[0-9a-zA-Z]")) {
+            record.append(fontE);
+        }
+
+        return Html.fromHtml(record.toString());
     }
 
 }
