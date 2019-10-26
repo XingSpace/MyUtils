@@ -10,9 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xing.app.myutils.Utils.LogUtil;
-import com.xing.app.myutils.Utils.ThreadUtil;
-
 public class MainActivity extends AppCompatActivity{
 
     private TextView textView;
@@ -34,12 +31,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        ThreadUtil.runOnChildThreadDelayed(new Runnable() {
-            @Override
-            public void run() {
-                LogUtil.e(ThreadUtil.isRunMainThread() + "");
-            }
-        },2000);
     }
 
     @Override
