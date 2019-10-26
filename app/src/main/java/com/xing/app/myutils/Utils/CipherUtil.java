@@ -72,30 +72,30 @@ public class CipherUtil {
      * 将byte类型数组转为16进制字符串
      */
     private static String byte2hex(byte[] b) {
-        StringBuilder hs = new StringBuilder();
-        String stmp;
-        for (int n = 0; b != null && n < b.length; n++) {
-            System.out.println(b[n]);
-            stmp = Integer.toHexString(b[n] & 0XFF);
-            if (stmp.length() == 1)
-                hs.append('0');
-            hs.append(stmp);
+        if (b == null) return "";
+        StringBuilder sb = new StringBuilder();
+        String str;
+        for (int i = 0;i < b.length; i++) {
+            System.out.println(b[i]);
+            str = Integer.toHexString(b[i] & 0XFF);
+            if (str.length() == 1)
+                sb.append('0');
+            sb.append(str);
         }
-        return hs.toString().toUpperCase();
+        return sb.toString().toUpperCase();
     }
 
     /**
      * 将16进制字符串转为byte数组
      */
     private static byte[] hex2byte(byte[] b) {
-        if ((b.length % 2) != 0)
-            throw new IllegalArgumentException();
-        byte[] b2 = new byte[b.length / 2];
-        for (int n = 0; n < b.length; n += 2) {
-            String item = new String(b, n, 2);
-            b2[n / 2] = (byte) Integer.parseInt(item, 16);
+        if (MathUtil.isOddNum(b.length)) return null;
+        byte[] result = new byte[b.length / 2];
+        for (int i = 0; i < b.length; i += 2) {
+            String str = new String(b, i, 2);
+            result[i / 2] = (byte) Integer.parseInt(str, 16);
         }
-        return b2;
+        return result;
     }
 
     /**
