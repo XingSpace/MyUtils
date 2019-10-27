@@ -24,6 +24,7 @@ public class LogUtil {
      */
     public static void init(String appName){
         LogUtil.appName = appName;
+        LogUtil.TAG = appName;
         File file = new File(path+"/"+ appName);
         if (!file.exists() || !file.isDirectory()){
             file.mkdirs();
