@@ -70,4 +70,18 @@ public class DateUtil {
         return sf.format(date);
     }
 
+    /**
+     * @return 年月日格式的字符串
+     */
+    public static String getYYYYMMDD(){
+        return convert2String(System.currentTimeMillis(),yyyyMMdd);
+    }
+
+    /**
+     * @return 年月日时分秒格式字符串
+     */
+    public static String getYYYYMMDDHHMMSS(){
+        return convert2String(System.currentTimeMillis());
+    }
+
 }
