@@ -9,8 +9,12 @@ import android.text.Spanned;
 import android.util.AttributeSet;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Display;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -180,6 +184,31 @@ public class UIUtil {
         }
 
         return Html.fromHtml(record.toString());
+    }
+
+    /**
+     * 等比例拉伸View，以及子View
+     */
+    public static void setScale(View view, float scale) {
+
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        params.width = (int) (view.getWidth() * scale);
+        params.height = (int) (view.getHeight() * scale);
+        params.leftMargin = (int) (params.leftMargin * scale);
+        params.rightMargin = (int) (params.rightMargin * scale);
+        params.topMargin = (int) (params.topMargin * scale);
+        params.bottomMargin = (int) (params.bottomMargin * scale);
+        view.setLayoutParams(params);
+
+        if (view instanceof TextView) {
+            ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX, ((TextView) view).getTextSize() * scale);
+        }
+
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                setScale(((ViewGroup) view).getChildAt(i), scale);
+            }
+        }
     }
 
 }
