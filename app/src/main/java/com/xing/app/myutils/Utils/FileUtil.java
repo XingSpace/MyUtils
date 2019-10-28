@@ -4,6 +4,11 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FileUtil {
 
@@ -64,6 +69,42 @@ public class FileUtil {
             return moveFile(original,target,isCover);
         }
         return false;
+    }
+
+    /**
+     * 文件复制
+     * @param isConver 是否覆盖
+     */
+    public static boolean copyFile(File from, File to, boolean isConver) throws IOException {
+
+        if(!isConver && to.exists()){
+            return false;
+        }
+
+        if(!from.exists() || from.isDirectory()){
+            LogUtil.d("The File is not exists or The File is a Directory");
+            return false;
+        }
+
+        InputStream input = null;
+        OutputStream output = null;
+        try {
+            input = new FileInputStream(from);
+            output = new FileOutputStream(to);
+            byte[] buf = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = input.read(buf)) > 0) {
+                output.write(buf, 0, bytesRead);
+            }
+            output.flush();
+        }catch(Exception e){
+            LogUtil.e("CopyFile Exception:" + e.getMessage());
+            return false;
+        } finally {
+            input.close();
+            output.close();
+        }
+        return true;
     }
 
 }
