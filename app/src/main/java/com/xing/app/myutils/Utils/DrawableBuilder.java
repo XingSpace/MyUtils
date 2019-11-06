@@ -1,8 +1,10 @@
 package com.xing.app.myutils.Utils;
 
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.StateListDrawable;
 
 public class DrawableBuilder {
 
@@ -85,6 +87,13 @@ public class DrawableBuilder {
     public DrawableBuilder setRect(Rect rect){
         this.rect = rect;
         return this;
+    }
+
+    public static StateListDrawable createStateDrawable(Drawable down, Drawable up){
+        StateListDrawable stateListDrawable = new StateListDrawable();
+        stateListDrawable.addState(new int[]{android.R.attr.state_pressed},down);
+        stateListDrawable.addState(new int[]{-android.R.attr.state_pressed},up);
+        return stateListDrawable;
     }
 
 }
