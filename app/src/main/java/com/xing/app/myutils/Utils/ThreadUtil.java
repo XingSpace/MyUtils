@@ -12,7 +12,14 @@ public class ThreadUtil {
 
     private static final int DelayedRunChildThread = 1;
 
+    private static final int DO_DELAYED_MAIN_THREAD = 2;
+    private static final int DO_DELAYED_CHILD_THREAD = 3;
+
     private static Map<String, LoopThread> mapThread = new HashMap<>();
+
+    //延迟任务栈
+    private static Map<String,Runnable> delayMap = new HashMap<>();
+
 
     @SuppressLint("HandlerLeak")
     private static Handler handler = new Handler() {
@@ -22,6 +29,20 @@ public class ThreadUtil {
             switch (msg.what) {
                 case DelayedRunChildThread:
                     runOnChildThread((Runnable) msg.obj);
+                    break;
+                case DO_DELAYED_MAIN_THREAD:
+                    Runnable main = delayMap.get(msg.obj.toString());
+                    if (main != null){
+                        main.run();
+                        delayMap.remove(msg.obj.toString());
+                    }
+                    break;
+                case DO_DELAYED_CHILD_THREAD:
+                    Runnable child = delayMap.get(msg.obj.toString());
+                    if (child != null){
+                        runOnChildThread(child);
+                        delayMap.remove(msg.obj.toString());
+                    }
                     break;
             }
         }
@@ -50,19 +71,36 @@ public class ThreadUtil {
     }
 
     /**
+     * 在主线程中延迟执行一个Runnable接口
      * @param time 延迟时间，以毫秒为单位
+     * @return 每个延迟任务的唯一tag标记
      */
-    public static void runOnMainThreadDelayed(Runnable runnable, long time) {
-        if (runnable == null || time < 0) return;
-        handler.postDelayed(runnable, time);
+    public static String runOnMainThreadDelayed(Runnable runnable, long time) {
+        if (runnable == null || time < 0) return "";
+        //生成唯一的tag标识
+        String tag = String.valueOf(runnable.hashCode() + System.currentTimeMillis());
+        delayMap.put(tag, runnable);
+        Message message = Message.obtain();
+        message.what = DO_DELAYED_MAIN_THREAD;
+        message.obj = tag;
+        handler.sendMessageDelayed(message, time);
+        return tag;
     }
 
-    public static void runOnChildThreadDelayed(Runnable runnable, long time) {
-        if (runnable == null || time < 0) return;
+    public static String runOnChildThreadDelayed(Runnable runnable, long time) {
+        if (runnable == null || time < 0) return "";
+        //生成唯一的tag标识
+        String tag = String.valueOf(runnable.hashCode() + System.currentTimeMillis());
+        delayMap.put(tag, runnable);
         Message message = Message.obtain();
-        message.what = DelayedRunChildThread;
-        message.obj = runnable;
+        message.what = DO_DELAYED_CHILD_THREAD;
+        message.obj = tag;
         handler.sendMessageDelayed(message, time);
+        return tag;
+    }
+
+    public static void removeDelayedThread(String tag){
+        delayMap.remove(tag);
     }
 
     /**
