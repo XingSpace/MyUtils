@@ -87,6 +87,11 @@ public class ThreadUtil {
         return tag;
     }
 
+    /**
+     * 在子线程中执行一个Runnable
+     * @param time 延迟执行的时间
+     * @return 每个延迟任务的唯一tag
+     */
     public static String runOnChildThreadDelayed(Runnable runnable, long time) {
         if (runnable == null || time < 0) return "";
         //生成唯一的tag标识

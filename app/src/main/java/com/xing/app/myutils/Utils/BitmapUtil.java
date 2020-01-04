@@ -1,5 +1,6 @@
 package com.xing.app.myutils.Utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,6 +8,10 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 
 public class BitmapUtil {
 
@@ -33,4 +38,26 @@ public class BitmapUtil {
         return output;
     }
 
+    /**
+     * 高斯模糊实现
+     * @param image 需要被高斯处理的bitmap，处理之后会被回收
+     * @param radius 模糊半径，半径越大越模糊(0 < radius <= 25)
+     * @return 被处理过的bitmap
+     */
+    public static Bitmap gaussBlur(Context context, Bitmap image, float radius) {
+        RenderScript rs = RenderScript.create(context);
+        Bitmap outputBitmap = Bitmap.createBitmap(image.getHeight(), image.getWidth(), Bitmap.Config.ARGB_8888);
+        Allocation in = Allocation.createFromBitmap(rs, image);
+        Allocation out = Allocation.createFromBitmap(rs, outputBitmap);
+
+        ScriptIntrinsicBlur intrinsicBlur = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+        intrinsicBlur.setRadius(radius);
+        intrinsicBlur.setInput(in);
+        intrinsicBlur.forEach(out);
+
+        out.copyTo(outputBitmap);
+        image.recycle();
+        rs.destroy();
+        return outputBitmap;
+    }
 }

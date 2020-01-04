@@ -1,5 +1,7 @@
 package com.xing.app.myutils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.xing.app.myutils.Utils.BitmapUtil;
 import com.xing.app.myutils.Utils.LogUtil;
 import com.xing.app.myutils.Utils.PermissionUtil;
 
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity{
         button = findViewById(R.id.button);
         button1 = findViewById(R.id.button1);
 
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.miao);
+//        Bitmap newBitmap = BitmapUtil.gaussBlur(this,bitmap,25);
+        Bitmap sss = BitmapUtil.gaussBlur(this,bitmap,25);
+        imageView.setImageBitmap(sss);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
