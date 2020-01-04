@@ -28,14 +28,14 @@ public class PermissionUtil {
     private static int mRequestCode;
     private static List<String> mListPermissions = new ArrayList<>();
     private static String[] tPermissions= new String[]{Manifest.permission.READ_SMS,
-            Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.READ_CALL_LOG,
-            Manifest.permission.READ_CONTACTS,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            Manifest.permission.RECORD_AUDIO,//录音
+            Manifest.permission.ACCESS_FINE_LOCATION,//定位
+            Manifest.permission.CAMERA,//相机
+            Manifest.permission.READ_PHONE_STATE,//读取手机状态
+            Manifest.permission.READ_CALL_LOG,//读取通话记录
+            Manifest.permission.READ_CONTACTS,//读取联系人
+            Manifest.permission.READ_EXTERNAL_STORAGE,//读取sd卡
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};//写入sd卡
     private static boolean allPermission=true;
 
     //检查哪些权限已经获取，将未获取到的权限，再申请一遍
