@@ -101,8 +101,8 @@ public class FileUtil {
             LogUtil.e("CopyFile Exception:" + e.getMessage());
             return false;
         } finally {
-            input.close();
-            output.close();
+            if(input != null) input.close();
+            if(output != null) output.close();
         }
         return true;
     }
