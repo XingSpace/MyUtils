@@ -13,15 +13,15 @@ import java.util.List;
 
 /**
  * 需要再AndroidManifest中做权限申请配置，然后再动态申请权限
- *     <uses-permission android:name="android.permission.READ_SMS"/>
- *     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
- *     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
- *     <uses-permission android:name="android.permission.CAMERA"/>
- *     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
- *     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
- *     <uses-permission android:name="android.permission.READ_CONTACTS"/>
- *     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
- *     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+ *     <uses-permission android:name="android.permission.READ_SMS"/> //读取短信
+ *     <uses-permission android:name="android.permission.RECORD_AUDIO"/> //麦克风权限、录音权限
+ *     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> //位置权限
+ *     <uses-permission android:name="android.permission.CAMERA"/> 相机权限
+ *     <uses-permission android:name="android.permission.READ_PHONE_STATE"/> 读取手机状态权限
+ *     <uses-permission android:name="android.permission.READ_CALL_LOG"/> 读取通话记录
+ *     <uses-permission android:name="android.permission.READ_CONTACTS"/> 读取联系人
+ *     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 写入sd卡权限
+ *     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> 读取sd卡权限
  */
 public class PermissionUtil {
 
