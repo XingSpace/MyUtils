@@ -7,6 +7,8 @@ import java.io.DataOutputStream;
  */
 public class ADBShellUtil {
 
+    private ADBShellUtil() {}
+
     /**
      * 将shell命令写入process
      * @param cmds 多个shell命令

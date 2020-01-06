@@ -9,6 +9,8 @@ import java.util.Arrays;
 
 public class LogUtil {
 
+    private LogUtil() {}
+
     public static String TAG = "MyUtils";
 
     public static String path = FileUtil.SD_Path;

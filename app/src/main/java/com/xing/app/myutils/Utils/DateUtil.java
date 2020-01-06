@@ -10,8 +10,10 @@ import java.util.Locale;
  */
 public class DateUtil {
 
-    public static String yyyyMMdd = "yyyy-MM-dd";
-    public static String yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss";
+    private DateUtil(){}
+
+    public static final String yyyyMMdd = "yyyy-MM-dd";
+    public static final String yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss";
 
     public static long convert2Long(String date){
         return convert2Long(date,yyyyMMddHHmmss);

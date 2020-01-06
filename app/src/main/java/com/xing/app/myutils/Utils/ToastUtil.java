@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 public class ToastUtil {
 
+    private ToastUtil() {}
+
     private static Toast mToast;
     private static Handler handler = new Handler();
 

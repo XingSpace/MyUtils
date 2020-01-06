@@ -12,6 +12,8 @@ import java.io.OutputStream;
 
 public class FileUtil {
 
+    private FileUtil() {}
+
     public static final String SD_Path = Environment.getExternalStorageDirectory().getPath();
 
     /**

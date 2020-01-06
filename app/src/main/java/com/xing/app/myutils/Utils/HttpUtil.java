@@ -21,6 +21,8 @@ import okhttp3.Response;
 
 public class HttpUtil {
 
+    private HttpUtil() {}
+
     //超时时间
     public static int TIME_OUT = 30;
 

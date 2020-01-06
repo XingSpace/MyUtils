@@ -7,6 +7,8 @@ import java.math.BigInteger;
  */
 public class MathUtil {
 
+    private MathUtil() {}
+
     /**
      * @return C (n,m)
      * 从n个元素中随机取m个元素进行组合，返回组合数

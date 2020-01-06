@@ -5,6 +5,6 @@ package com.xing.app.myutils.Utils;
  */
 public class BitwiseUtil {
 
-
+    private BitwiseUtil() {}
 
 }

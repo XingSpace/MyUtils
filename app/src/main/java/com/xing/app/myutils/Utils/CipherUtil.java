@@ -13,6 +13,8 @@ import javax.crypto.spec.DESKeySpec;
 
 public class CipherUtil {
 
+    private CipherUtil() {}
+
     /**
      * MD5加密
      * @param dataStr 要加密的字符串

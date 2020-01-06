@@ -11,6 +11,8 @@ import okio.Source;
 
 public class IOUtil {
 
+    private IOUtil() {}
+
     /**
      * @param data 要被写入文件的数据
      * @param file 目标文件

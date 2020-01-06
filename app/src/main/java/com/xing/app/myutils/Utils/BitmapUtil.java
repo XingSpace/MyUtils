@@ -15,6 +15,8 @@ import android.renderscript.ScriptIntrinsicBlur;
 
 public class BitmapUtil {
 
+    private BitmapUtil() {}
+
     /**
      * @return 返回一个圆角的bitmap
      */

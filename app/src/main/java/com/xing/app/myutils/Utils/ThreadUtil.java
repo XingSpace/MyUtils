@@ -10,6 +10,8 @@ import java.util.Map;
 
 public class ThreadUtil {
 
+    private ThreadUtil() {}
+
     private static final int DelayedRunChildThread = 1;
 
     private static final int DO_DELAYED_MAIN_THREAD = 2;
