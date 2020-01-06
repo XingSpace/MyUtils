@@ -1,9 +1,11 @@
 package com.xing.app.myutils.Utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
 import java.net.URLConnection;
@@ -36,7 +38,7 @@ public class HttpUtil {
      * @param url 请求地址
      * @param map 上传时需要被附带的参数集合（可以为空）
      * @param file 需要被上传的文件（可以为空）
-     * @param fileKey 上传文件的key值（不上传文件的话，可以为空）
+     * @param fileKey 上传文件的key值（在传输过程中用于标记目标文件的键值，例如"temp"，不上传文件的话，可以为空）
      * @return Response对象
      */
     public static Response uploadFile(String url, Map<String, String> map, File file ,String fileKey) {
@@ -140,6 +142,57 @@ public class HttpUtil {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    /**
+     * 如果第一次没有ping通，还会再尝试一次
+     *
+     * @param ip 要被请求的IP地址
+     * @return 是否能够ping通
+     */
+    public static boolean execPing(String ip) {
+        return execPing(ip, 2);
+    }
+
+    /**
+     * 执行一个ping命令
+     *
+     * @param ip     要被请求的IP地址
+     * @param tryMax 如果没有ping通，继续尝试的次数(tryMax > 0)
+     * @return 是否能够ping通
+     */
+    public static boolean execPing(String ip, int tryMax) {
+        Runtime runtime = Runtime.getRuntime(); // 获取当前程序的运行进对象
+        Process process = null; //声明处理类对象
+        String line = null; //返回行信息
+        InputStream is = null; //输入流
+        InputStreamReader isr = null;// 字节流
+        BufferedReader br = null;
+        boolean res = false;// 结果
+        int count = 0;
+        try {
+            process = runtime.exec("ping " + ip); // PING
+
+            is = process.getInputStream(); // 实例化输入流
+            isr = new InputStreamReader(is);// 把输入流转换成字节流
+            br = new BufferedReader(isr);// 从字节中读取文本
+            while ((line = br.readLine()) != null) {
+                if (line.toUpperCase().contains("TTL")) {
+                    res = true;
+                    break;
+                }
+                count++;
+                if (count > tryMax) break;
+            }
+            is.close();
+            isr.close();
+            br.close();
+            return res;
+        } catch (IOException e) {
+            e.printStackTrace();
+            runtime.exit(1);
+        }
+        return false;
     }
 
     /**
