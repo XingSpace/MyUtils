@@ -47,6 +47,7 @@ public class BitmapUtil {
      * @return 被处理过的bitmap
      */
     public static Bitmap gaussBlur(Context context, Bitmap image, float radius) {
+        if (radius > 25f || radius < 0f) throw new IllegalArgumentException("The radius must be (0 < radius <= 25)");
         RenderScript rs = RenderScript.create(context);
         Bitmap outputBitmap = Bitmap.createBitmap(image.getHeight(), image.getWidth(), Bitmap.Config.ARGB_8888);
         Allocation in = Allocation.createFromBitmap(rs, image);
@@ -60,6 +61,37 @@ public class BitmapUtil {
         out.copyTo(outputBitmap);
         image.recycle();
         rs.destroy();
+        return outputBitmap;
+    }
+
+    /**
+     * 将图片变为黑白
+     * @param bitmap 用完之后会被回收
+     */
+    public static Bitmap gray(Bitmap bitmap){
+        int[] arr = new int[bitmap.getWidth()*bitmap.getHeight()];
+        bitmap.getPixels(arr,0,bitmap.getWidth(),0,0,bitmap.getWidth(),bitmap.getHeight());
+        JNIUtils.gray(arr);
+        Bitmap outputBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        outputBitmap.setPixels(arr,0,bitmap.getWidth(),0,0,bitmap.getWidth(),bitmap.getHeight());
+        bitmap.recycle();
+        return outputBitmap;
+    }
+
+    /**
+     * 设置图片透明度
+     * @param bitmap 使用会被释放掉
+     * @param alpha 透明度（0 =< alpha =< 1）
+     */
+    public static Bitmap setAlpha(Bitmap bitmap,float alpha){
+        if (alpha > 1f || alpha < 0f) throw new IllegalArgumentException("The alpha must be (0 =< alpha =< 1)");
+        Bitmap outputBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        int[] arr = new int[bitmap.getWidth()*bitmap.getHeight()];
+        bitmap.getPixels(arr,0,bitmap.getWidth(),0,0,bitmap.getWidth(),bitmap.getHeight());
+
+        JNIUtils.setAlpha(arr,alpha);
+        outputBitmap.setPixels(arr,0,bitmap.getWidth(),0,0,bitmap.getWidth(),bitmap.getHeight());
+        bitmap.recycle();
         return outputBitmap;
     }
 }

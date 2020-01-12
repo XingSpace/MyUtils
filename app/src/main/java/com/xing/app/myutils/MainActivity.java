@@ -32,8 +32,9 @@ public class MainActivity extends AppCompatActivity{
         button1 = findViewById(R.id.button1);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.miao);
-//        Bitmap newBitmap = BitmapUtil.gaussBlur(this,bitmap,25);
-        Bitmap sss = BitmapUtil.gaussBlur(this,bitmap,25);
+
+        Bitmap sss = BitmapUtil.setAlpha(bitmap,0.9f);
+
         imageView.setImageBitmap(sss);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
