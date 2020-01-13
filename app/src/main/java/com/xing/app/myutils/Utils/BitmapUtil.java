@@ -2,16 +2,24 @@ package com.xing.app.myutils.Utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class BitmapUtil {
 
@@ -94,4 +102,99 @@ public class BitmapUtil {
         bitmap.recycle();
         return outputBitmap;
     }
+
+    /**
+     * 将Bitmap转换为Drawable
+     */
+    public static Drawable bitmapToDrawable(Bitmap bitmap){
+        return new BitmapDrawable(bitmap);
+    }
+
+    /**
+     * 将Drawable转换为Bitmap
+     */
+    public static Bitmap drawableToBitmap(Drawable drawable){
+        // 取 drawable 的长宽
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+
+        // 取 drawable 的颜色格式
+        Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                : Bitmap.Config.RGB_565;
+        // 建立对应 bitmap
+        Bitmap bitmap = Bitmap.createBitmap(w, h, config);
+        // 建立对应 bitmap 的画布
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, w, h);
+        // 把 drawable 内容画到画布中
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    /**
+     * 将Base64字符串转换为Bitmap
+     */
+    public static Bitmap base64ToBitmap(String base64) {
+
+        Bitmap bitmap = null;
+        try {
+            byte[] bitmapArray = Base64.decode(base64.split(",")[1], Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
+
+    /**
+     * 将Bitmap转换为Base64字符串
+     */
+    public static String bitmapToBase64(Bitmap bitmap) {
+
+        // 要返回的字符串
+        String reslut = null;
+        ByteArrayOutputStream baos = null;
+
+        try {
+            if (bitmap != null) {
+                baos = new ByteArrayOutputStream();
+                // 压缩只对保存有效果bitmap还是原来的大小
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+                baos.flush();
+                baos.close();
+                // 转换为字节数组
+                byte[] byteArray = baos.toByteArray();
+
+                // 转换为字符串
+                reslut = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            } else {
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (baos != null) {
+                    baos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return reslut;
+    }
+
+    /**
+     * 回收图片所占内存
+     */
+    public static void recycleBitmap(Bitmap bitmap) {
+        if (bitmap != null && !bitmap.isRecycled()) {
+            bitmap.recycle();
+            bitmap = null;
+            System.gc(); // 提醒系统及时回收
+        }
+    }
+
 }

@@ -202,7 +202,7 @@ public class HttpUtil {
      * @param fileName  文件名称
      * @return  文件所属媒体类型
      */
-    private static String getMimeType(String fileName) {
+    public static String getMimeType(String fileName) {
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         String contentTypeFor = fileNameMap.getContentTypeFor(fileName);
         if (contentTypeFor == null) {

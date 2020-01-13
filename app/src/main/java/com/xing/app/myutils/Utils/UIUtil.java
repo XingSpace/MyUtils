@@ -44,7 +44,7 @@ public class UIUtil {
     }
 
     /**
-     * 未完成
+     * todo 未完成
      */
     public static int getLayoutWidthFormAttr(Context context,AttributeSet attributeSet){
         if (context == null || attributeSet == null) return 0;
@@ -193,14 +193,16 @@ public class UIUtil {
      */
     public static void setScale(View view, float scale) {
 
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        params.width = (int) (view.getWidth() * scale);
-        params.height = (int) (view.getHeight() * scale);
-        params.leftMargin = (int) (params.leftMargin * scale);
-        params.rightMargin = (int) (params.rightMargin * scale);
-        params.topMargin = (int) (params.topMargin * scale);
-        params.bottomMargin = (int) (params.bottomMargin * scale);
-        view.setLayoutParams(params);
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            params.width = (int) (view.getWidth() * scale);
+            params.height = (int) (view.getHeight() * scale);
+            params.leftMargin = (int) (params.leftMargin * scale);
+            params.rightMargin = (int) (params.rightMargin * scale);
+            params.topMargin = (int) (params.topMargin * scale);
+            params.bottomMargin = (int) (params.bottomMargin * scale);
+            view.setLayoutParams(params);
+        }
 
         if (view instanceof TextView) {
             ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX, ((TextView) view).getTextSize() * scale);

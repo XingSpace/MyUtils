@@ -1,6 +1,6 @@
 package com.xing.app.myutils.Utils;
 
-import android.graphics.Rect;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -8,92 +8,91 @@ import android.graphics.drawable.StateListDrawable;
 
 public class DrawableBuilder {
 
-    private GradientDrawable.Orientation orientation = GradientDrawable.Orientation.TOP_BOTTOM;
-    private int type = GradientDrawable.LINEAR_GRADIENT;
-    private int shape = GradientDrawable.RECTANGLE;
-    private int[] colors;
-    private int color = 0xffffffff;
-    private float radius = 0f;
-    private float[] radii;
-    private int alpha = 0xff;// 0x00~0xff
-    private Rect rect;
+    private GradientDrawable gradientDrawable;
 
-    public GradientDrawable createGradient(){
-        GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setAlpha(alpha);
-        if (radii == null) {
-            gradientDrawable.setCornerRadius(radius);
-        } else {
-            gradientDrawable.setCornerRadii(radii);
-        }
-        if (colors == null){
-            gradientDrawable.setColor(color);
-        }else {
-            gradientDrawable.setColors(colors);
-        }
-        gradientDrawable.setGradientType(type);
-        gradientDrawable.setOrientation(orientation);
-        gradientDrawable.setShape(shape);
-        if (rect != null){
-            gradientDrawable.setBounds(rect);
-        }
+    public DrawableBuilder(){
+        gradientDrawable = new GradientDrawable();
+    }
+
+    public GradientDrawable create(){
         return gradientDrawable;
     }
 
-    public static LayerDrawable createLayer(GradientDrawable...gradientDrawables){
-        return new LayerDrawable(gradientDrawables);
-    }
-
-    public DrawableBuilder setAlpha(int alpha){
-        this.alpha = alpha;
-        return this;
-    }
-
-    public DrawableBuilder setRadii(float[] radii){
-        this.radii = radii;
-        return this;
-    }
-
+    /**
+     * @param radius 设置圆角大小
+     */
     public DrawableBuilder setRadius(float radius){
-        this.radius = radius;
+        gradientDrawable.setCornerRadius(radius);
         return this;
     }
 
-    public DrawableBuilder setOrientation(GradientDrawable.Orientation orientation){
-        this.orientation = orientation;
-        return this;
-    }
-
+    /**
+     * @param color 设置单色背景
+     */
     public DrawableBuilder setColor(int color){
-        this.color = color;
+        gradientDrawable.setColor(color);
         return this;
     }
 
-    public DrawableBuilder setColors(int[] colors){
-        this.colors = colors;
+    /**
+     * @param color 设置渐变色
+     */
+    public DrawableBuilder setColor(int[] color){
+        gradientDrawable.setColors(color);
         return this;
     }
 
+    /**
+     * @param orientation 设置渐变方式
+     */
+    public DrawableBuilder setOrientation(GradientDrawable.Orientation orientation){
+        gradientDrawable.setOrientation(orientation);
+        return this;
+    }
+
+    /**
+     * @param shape 设置背景形状
+     */
     public DrawableBuilder setShape(int shape){
-        this.shape = shape;
+        gradientDrawable.setShape(shape);
         return this;
     }
 
-    public DrawableBuilder setGradientType(int type){
-        this.type = type;
+    /**
+     * @param width 设置描边的粗细
+     * @param color 设置描边色彩
+     */
+    public DrawableBuilder setStroke(int width,int color){
+        gradientDrawable.setStroke(width,color);
         return this;
     }
 
-    public DrawableBuilder setRect(Rect rect){
-        this.rect = rect;
-        return this;
-    }
-
-    public static StateListDrawable createStateDrawable(Drawable down, Drawable up){
+    /**
+     * 创建一个 响应点击效果的 Drawable
+     * @param down 按下时的Drawable
+     * @param up 抬起时的Drawable
+     */
+    public static StateListDrawable createStateDrawable(Drawable down,Drawable up){
         StateListDrawable stateListDrawable = new StateListDrawable();
         stateListDrawable.addState(new int[]{android.R.attr.state_pressed},down);
         stateListDrawable.addState(new int[]{-android.R.attr.state_pressed},up);
         return stateListDrawable;
+    }
+
+    /**
+     * 创建一个 响应点击效果的 Drawable
+     * @param down 按下时的Bitmap
+     * @param up 抬起时的Bitmap
+     */
+    public static StateListDrawable createStateDrawable(Bitmap down, Bitmap up){
+        return createStateDrawable(BitmapUtil.bitmapToDrawable(down),BitmapUtil.bitmapToDrawable(up));
+    }
+
+    /**
+     * 创建一个LayerDrawable (下层覆盖上层)
+     */
+    public static LayerDrawable createLayer(Drawable...drawables){
+        return new LayerDrawable(drawables);
     }
 
 }

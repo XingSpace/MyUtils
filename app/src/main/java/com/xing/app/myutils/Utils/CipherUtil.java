@@ -57,7 +57,7 @@ public class CipherUtil {
     /**
      * 对称解密方法
      */
-    public static String decrypt(String data, String key) {
+    public static String decryptDES(String data, String key) {
         return data != null ? new String(exeCrypt(Cipher.DECRYPT_MODE,
                 hex2byte(data.getBytes()), key.getBytes())) : null;
     }
@@ -65,7 +65,7 @@ public class CipherUtil {
     /**
      * 对称加密方法
      */
-    public static String encrypt(String data, String key) {
+    public static String encryptDES(String data, String key) {
         return data != null ? byte2hex(exeCrypt(Cipher.ENCRYPT_MODE,
                 data.getBytes(), key.getBytes())) : null;
     }

@@ -1,7 +1,6 @@
 package com.xing.app.myutils.Utils;
 
 import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,7 +44,6 @@ public class FileUtil {
             target.mkdirs();
         }
         File newPath = new File(target,original.getName());
-        Log.e("fuck",newPath.getAbsolutePath());
         if (newPath.exists()){
             if (isCover){
                 deleteFile(newPath);
