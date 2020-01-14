@@ -2,8 +2,8 @@
 常用的Android工具类大集合
 
 + BitmapUtil
-	+ getRoundedCornerBitmap(Bitmap bitmap, float roundPx)
-	    - 返回一个圆角的Bitmap
+	+ getRoundedBitmapDrawable(Bitmap bitmap, float roundPx)
+	    - 返回一个圆角的Drawable
 
 	+ gaussBlur(Context context, Bitmap image, float radius)
 	    - 返回一个高斯模糊处理过的Bitmap
@@ -227,3 +227,20 @@
 
     + setScale(View view, float scale)
         - 等比例拉伸view，包括它的子View
+
++ RoundImageView
+    - 这个包是从'com.makeramen:roundedimageview:2.3.0'中集成的
+    更多的使用方法可以前往[RoundedImageView](https://github.com/vinc3m1/RoundedImageView)中查看
+
++ RoundedDrawableBuilder
+    - 本类使用链式编程方式创建一个RoundedDrawable
+
++ LogUtil（需要有写入和读取权限）
+    + init(String appName)
+        - 本方法用于初始化记录日志的文件夹 @appName 就是文件夹名称
+
+    + d(String s)
+        - 会将日志以debug标签记录下来，并写入到日志中
+
+    + e(String s)
+        - 会将日志以error标签记录下来，并写入到日志中

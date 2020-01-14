@@ -1,7 +1,6 @@
 package com.xing.app.myutils;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,9 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xing.app.myutils.Utils.BitmapUtil;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.xing.app.myutils.Utils.LogUtil;
 import com.xing.app.myutils.Utils.PermissionUtil;
+import com.xing.app.myutils.Views.RoundImageView.Corner;
+import com.xing.app.myutils.Views.RoundImageView.RoundedTransformationBuilder;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -31,11 +33,24 @@ public class MainActivity extends AppCompatActivity{
         button = findViewById(R.id.button);
         button1 = findViewById(R.id.button1);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.miao);
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.miao);
 
-        Bitmap sss = BitmapUtil.setAlpha(bitmap,0.9f);
+//        Bitmap sss = BitmapUtil.setAlpha(bitmap,0f);
+//        Bitmap sss = BitmapUtil.getRoundedBitmapDrawable(getBaseContext(),bitmap,50f);
 
-        imageView.setImageBitmap(sss);
+//        imageView.setImageDrawable(BitmapUtil.getRoundedBitmapDrawable(getBaseContext(),bitmap,300f));
+        Transformation transformation = new RoundedTransformationBuilder()
+                .borderColor(Color.BLACK)
+                .borderWidthDp(3)
+                .cornerRadiusDp(Corner.TOP_LEFT,90)
+                .oval(false)
+                .build();
+        Picasso.with(getApplicationContext())
+                .load(R.mipmap.miao)
+                .fit()
+                .transform(transformation)
+                .into(imageView);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
