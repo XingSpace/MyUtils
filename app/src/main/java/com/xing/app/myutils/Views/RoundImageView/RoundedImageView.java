@@ -348,7 +348,7 @@ public class RoundedImageView extends ImageView {
       if (mHasColorFilter) {
         mDrawable.setColorFilter(mColorFilter);
       }
-      // TODO: support, eventually...
+      // support, eventually...
       //mDrawable.setXfermode(mXfermode);
       //mDrawable.setAlpha(mAlpha * mViewAlphaScale >> 8);
     }

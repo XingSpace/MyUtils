@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity{
         button = findViewById(R.id.button);
         button1 = findViewById(R.id.button1);
 
+        LogUtil.e("此时的PicassoProvider.Context->");
+
 //        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.miao);
 
 //        Bitmap sss = BitmapUtil.setAlpha(bitmap,0f);
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity{
                 .cornerRadiusDp(Corner.TOP_LEFT,90)
                 .oval(false)
                 .build();
-        Picasso.with(getApplicationContext())
+        Picasso.get()
                 .load(R.mipmap.miao)
                 .fit()
                 .transform(transformation)
