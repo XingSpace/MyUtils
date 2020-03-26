@@ -179,6 +179,7 @@ public class HttpUtil {
             isr = new InputStreamReader(is);// 把输入流转换成字节流
             br = new BufferedReader(isr);// 从字节中读取文本
             while ((line = br.readLine()) != null) {
+                LogUtil.e("网络结果-"+line);
                 if (line.toUpperCase().contains("TTL")) {
                     res = true;
                     break;

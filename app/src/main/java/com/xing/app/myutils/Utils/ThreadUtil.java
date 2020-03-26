@@ -24,7 +24,7 @@ public class ThreadUtil {
 
 
     @SuppressLint("HandlerLeak")
-    private static Handler handler = new Handler() {
+    private static Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void dispatchMessage(Message msg) {
             super.dispatchMessage(msg);

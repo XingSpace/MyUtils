@@ -35,7 +35,8 @@ public class PermissionUtil {
             Manifest.permission.READ_CALL_LOG,//读取通话记录
             Manifest.permission.READ_CONTACTS,//读取联系人
             Manifest.permission.READ_EXTERNAL_STORAGE,//读取sd卡
-            Manifest.permission.WRITE_EXTERNAL_STORAGE};//写入sd卡
+            Manifest.permission.WRITE_EXTERNAL_STORAGE//写入sd卡
+            ,Manifest.permission.INTERNET};
     private static boolean allPermission=true;
 
     //检查哪些权限已经获取，将未获取到的权限，再申请一遍
