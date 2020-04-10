@@ -1,13 +1,13 @@
 //打包为apk就解除这一行的注释
-apply plugin: 'com.android.application'
+//apply plugin: 'com.android.application'
 //打包为aar就解除这一行的注释
-//apply plugin: 'com.android.library'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
     defaultConfig {
         //打包为aar就解除这一行注释
-        applicationId "com.xing.app.myutils"
+//        applicationId "com.xing.app.myutils"
         minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
