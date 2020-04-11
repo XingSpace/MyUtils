@@ -1,6 +1,8 @@
 # MyUtils
 常用的Android工具类大集合
 
+ps: 这里引入了 https://github.com/vinc3m1/RoundedImageView 的功能
+
 + BitmapUtil
 	+ getRoundedBitmapDrawable(Bitmap bitmap, float roundPx)
 	    - 返回一个圆角的Drawable
@@ -55,6 +57,18 @@
 
 	+ copyFile(File from, File to, boolean isConver)
 	    - 复制文件
+
+	+ createFile(String path, String name)
+	    - 创建文件
+
+	+ createDirectory(String path, String name)
+	    - 创建文件夹
+
+	+ writeToFile(File file, String text, boolean isAppend)
+	    - 向指定文件写入东西
+
+	+ readFile(File file)
+	    - 读取指定文件
 
 + HttpUtil
 	+ uploadFile(String url, Map<String, String> map, File file ,String fileKey)
