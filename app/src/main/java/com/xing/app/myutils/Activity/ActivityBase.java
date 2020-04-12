@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.xing.app.myutils.R;
 
@@ -109,4 +112,59 @@ public abstract class ActivityBase extends AppCompatActivity {
     protected void hideActionBar() {
         action_bar.setVisibility(View.GONE);
     }
+
+    //----------- Fragment的相关操作封装  start ----------------
+    protected void hideFragment(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.hide(fragment);
+        ft.commit();
+    }
+
+    protected void showFragment(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.show(fragment);
+        ft.commit();
+    }
+
+    protected void addFragment(int layoutID, Fragment fragment, String tag) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(layoutID, fragment, tag);
+        ft.commit();
+    }
+
+    protected void removeFragment(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.remove(fragment);
+        ft.commit();
+    }
+
+    /**
+     * 判断当前activity中是否存在某个指定的Fragment
+     */
+    protected boolean isExistFragment(String tag) {
+        FragmentManager fm = getSupportFragmentManager();
+        return fm.findFragmentByTag(tag) != null;
+    }
+
+    /**
+     * 判断当前activity中是否存在某个指定的Fragment
+     */
+    protected boolean isExistFragment(int id) {
+        FragmentManager fm = getSupportFragmentManager();
+        return fm.findFragmentById(id) != null;
+    }
+
+    /**
+     * 判断当前activity中是否存在某个指定的Fragment
+     */
+    protected boolean isExistFragment(Fragment fragment) {
+        return fragment.getActivity() == this;
+    }
+
+    //----------- Fragment的相关操作封装  end ----------------
+
 }
